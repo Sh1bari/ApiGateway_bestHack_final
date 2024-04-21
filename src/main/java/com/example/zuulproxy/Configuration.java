@@ -20,15 +20,22 @@ public class Configuration{
                 .route("spring_boot_admin", r -> r.path("/admin-ui/**")
                         .uri("lb://MAIN-SERVER/admin-ui"))
 
+                //Auth server swagger
                 .route("auth_server_swagger1", r -> r.path("/api/auth/swagger-ui/**")
                         .filters(f -> f.stripPrefix(2))
                         .uri("lb://AUTH-SERVER/"))
-                .route("auth_server_swagger2", r -> r.path("/api/auth/api/auth/v3/api-docs/**")
-                        .filters(f -> f.rewritePath("/api/auth/api/auth/v3/api-docs/(?<segment>.*)", "/api/auth/v3/api-docs/${segment}"))
+                .route("auth_server_swagger2", r -> r.path("/api/auth/api/auth/v3/api-docs/swagger-config")
+                        .filters(f -> f.rewritePath("/api/auth/api/auth/v3/api-docs/swagger-config", "/api/auth/v3/api-docs/swagger-config"))
                         .uri("lb://AUTH-SERVER/"))
+                .route("auth_server_swagger3", r -> r.path("/api/auth/api/auth/v3/api-docs")
+                        .filters(f -> f.stripPrefix(2))
+                        .uri("lb://AUTH-SERVER/api/auth/v3/api-docs"))
+
+                //Auth server
                 .route("auth_server", r -> r.path("/api/auth/**")
                         .uri("lb://AUTH-SERVER/api/auth/"))
 
+                //Main server swagger
                 .route("main_server_swagger1", r -> r.path("/api/main/swagger-ui/**")
                         .filters(f -> f.stripPrefix(2))
                         .uri("lb://MAIN-SERVER/"))
@@ -38,6 +45,8 @@ public class Configuration{
                 .route("main_server_swagger3", r -> r.path("/api/main/api/main/v3/api-docs")
                         .filters(f -> f.stripPrefix(2))
                         .uri("lb://MAIN-SERVER/api/main/v3/api-docs"))
+
+                //Main server
                 .route("main_server", r -> r.path("/api/main/**")
                         .uri("lb://MAIN-SERVER/api/main/"))
                 .build();
