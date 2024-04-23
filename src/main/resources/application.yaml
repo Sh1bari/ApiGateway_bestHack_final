@@ -7,7 +7,13 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOrigins: '*'
-            allowedMethods: '*'
+            allowedHeaders: '*'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - HEAD
   application:
     name: gateway-server
 eureka:
