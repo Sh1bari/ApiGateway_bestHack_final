@@ -37,55 +37,73 @@ public class Configuration{
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("spring_boot_eureka", r -> r.path("/eureka-ui/**")
-                        .filters(f -> f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE"))
+                        .filters(f -> f.setResponseHeader("Access-Control-Allow-Origin", "*")
+                                .setResponseHeader("Access-Control-Allow-Methods", "*")
+                                .setResponseHeader("Access-Control-Expose-Headers", "*"))
                         .uri("lb://EUREKA-SERVER/"))
                 .route("spring_boot_eureka", r -> r.path("/eureka/**")
-                        .filters(f -> f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE"))
+                        .filters(f -> f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*"))
                         .uri("lb://EUREKA-SERVER/"))
                 .route("spring_boot_admin", r -> r.path("/admin-ui/**")
-                        .filters(f -> f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE"))
+                        .filters(f -> f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*"))
                         .uri("lb://MAIN-SERVER/admin-ui"))
 
                 //Auth server swagger
                 .route("auth_server_swagger1", r -> r.path("/api/auth/swagger-ui/**")
                         .filters(f -> {
                             f.stripPrefix(2);
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         })
                         .uri("lb://AUTH-SERVER/"))
                 .route("auth_server_swagger2", r -> r.path("/api/auth/api/auth/v3/api-docs/swagger-config")
                         .filters(f -> {
                             f.rewritePath("/api/auth/api/auth/v3/api-docs/swagger-config", "/api/auth/v3/api-docs/swagger-config");
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         })
                         .uri("lb://AUTH-SERVER/"))
                 .route("auth_server_swagger3", r -> r.path("/api/auth/api/auth/v3/api-docs")
                         .filters(f -> {
                             f.stripPrefix(2);
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         })
                         .uri("lb://AUTH-SERVER/api/auth/v3/api-docs"))
 
                 //Auth server
                 .route("auth_server", r -> r.path("/api/auth/**")
-                        .filters(f -> f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE"))
+                        .filters(f -> f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*"))
                         .uri("lb://AUTH-SERVER/api/auth/"))
 
                 //Main server swagger
                 .route("main_server_swagger1", r -> r.path("/api/main/swagger-ui/**")
                         .filters(f -> {
                             f.stripPrefix(2);
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         })
                         .uri("lb://MAIN-SERVER/"))
                 .route("main_server_swagger2", r -> r.path("/api/main/api/main/v3/api-docs/swagger-config")
                         .filters(f -> {
                             f.rewritePath("/api/main/api/main/v3/api-docs/swagger-config", "/api/main/v3/api-docs/swagger-config");
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         }
                         )
@@ -93,14 +111,18 @@ public class Configuration{
                 .route("main_server_swagger3", r -> r.path("/api/main/api/main/v3/api-docs")
                         .filters(f -> {
                             f.stripPrefix(2);
-                            f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE");
+                            f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*");;
                             return f;
                         })
                         .uri("lb://MAIN-SERVER/api/main/v3/api-docs"))
 
                 //Main server
                 .route("main_server", r -> r.path("/api/main/**")
-                        .filters(f -> f.dedupeResponseHeader("Access-Control-Allow-Origin", "RETAIN_UNIQUE"))
+                        .filters(f -> f.setResponseHeader("Access-Control-Allow-Origin", "*")
+            .setResponseHeader("Access-Control-Allow-Methods", "*")
+            .setResponseHeader("Access-Control-Expose-Headers", "*"))
                         .uri("lb://MAIN-SERVER/api/main/"))
                 .build();
     }
